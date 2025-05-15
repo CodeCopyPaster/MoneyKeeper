@@ -1,17 +1,21 @@
-from db_connect import connection
+from utils.logger import write_log as lg
 
-def select_data(connection, query):
+def log_data(connection):
     cursor = connection.cursor()
-    try:
-        cursor.execute(query)
-        result = cursor.fetchall()
-        return result
-    except Exception as e:
-        print(f"Ошибка при получении данных: {e}")
-        return None
 
-select_query = "SELECT testchar FROM test"
-testiki = select_data(connection, select_query)
+    data_for_log = lg()
 
-for testiki in testiki:
-    print(testiki)
+    number = data_for_log["balance"]
+    current_time = data_for_log["date"]
+
+
+    query = """
+    INSERT INTO datetime_storage (number_value, datetime_value)
+    VALUES (%s, %s);
+    """
+
+    cursor.execute(query, (number, current_time))
+
+    connection.commit()
+
+    cursor.close()
