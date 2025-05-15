@@ -1,4 +1,6 @@
 from .local_save import load_data, save_data
+from database.db_connect import connection
+from database.requests import log_data
 
 balance, salary, subscriptions = load_data()
 
@@ -13,6 +15,7 @@ def add_money(amount, balance_label):
         balance += int(amount)
         update_balance_label(balance_label)
         save_data(balance, salary, subscriptions)
+    log_data(connection)
 
 
 def spend_money(amount, balance_label):
@@ -23,6 +26,7 @@ def spend_money(amount, balance_label):
             balance -= cost
             update_balance_label(balance_label)
             save_data(balance, salary, subscriptions)
+    log_data(connection)
 
 
 def set_salary(amount, balance_label):
@@ -32,6 +36,7 @@ def set_salary(amount, balance_label):
         balance += salary
         update_balance_label(balance_label)
         save_data(balance, salary, subscriptions)
+    log_data(connection)
 
 
 def subscribe(cost, balance_label):
@@ -43,3 +48,4 @@ def subscribe(cost, balance_label):
             subscriptions.append(cost)
             update_balance_label(balance_label)
             save_data(balance, salary, subscriptions)
+    log_data(connection)
