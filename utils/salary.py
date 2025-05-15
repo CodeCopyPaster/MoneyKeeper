@@ -1,2 +1,2 @@
-def set_salary():
-    pass # todo create
+def count_salary():
+    pass # todo 
